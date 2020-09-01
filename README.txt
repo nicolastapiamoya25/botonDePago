@@ -1,0 +1,30 @@
+### ESTRUCTURA DE CAPETAS & ARCHIVOS
+/
+|->api
+    |->crud
+        |->acrualizarDesglose.php
+        |->getCredito.php
+        |->getCuotaGastos.php
+        |->seleccionaCredito.php
+    |->loginRegistro
+        |->foto_perfil
+            |->
+        |->login.php
+        |->registro.php
+        |->validarEmail.php
+    |->conexion.php
+
+|->home
+    |->final.php
+    |->index.php
+    |->prueba.php
+    |->return.php
+    |->totalPagoTotal.php
+|->includes
+    |->
+|->librerias
+|->login
+|->vendor
+|->vuejs
+|->index.php
+|->README.txt

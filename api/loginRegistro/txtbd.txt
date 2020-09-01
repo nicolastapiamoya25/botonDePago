@@ -1,0 +1,91 @@
+
+
+--Tabla tipo_socio
+create table tipo_socio(
+	idtipo_socio integer primary key identity,
+	nombre varchar(50) not null unique,
+	descripcion varchar(256) null,
+	condicion bit default(1)
+);
+insert into tipo_socio (nombre,descripcion) values ('Normal','El soscio normal puede tener creditos, libretas de ahorro y cuota de gastos');
+insert into tipo_socio (nombre,descripcion) values ('No socio','El No soscio tiene cuota de gastos');
+insert into tipo_socio (nombre,descripcion) values ('Titular','El No soscio tiene avenimientos');
+
+--Tabla socio
+create table socio(
+	idsocio integer primary key identity,
+	idtipo_socio integer not null,
+	rut varchar(50) not null unique,
+	nombre varchar(100) not null,
+	direccion varchar(100) not null,
+	telefono integer not null
+	FOREIGN KEY (idtipo_socio) REFERENCES tipo_socio(idtipo_socio)
+);
+
+
+--Tabla credito
+create table credito(
+	idcredito integer primary key identity,
+	idsocio integer not null,
+	num_credito integer(50) not null unique,
+	monto_credito integer(100) not null,
+    cuotas_credito integer(100) not null,
+	fecha_hora datetime not null,
+    dividendo_credito integer(100) not null
+	FOREIGN KEY (idsocio) REFERENCES socio(idsocio)
+);
+
+--Tabla libreta_ahorro
+create table libreta_ahorro(
+	idlibreta_ahorro integer primary key identity,
+	idsocio integer not null,
+	num_libreta_ahorro integer(50) not null unique,
+	fecha_hora datetime not null,
+    monto integer not null
+	FOREIGN KEY (idsocio) REFERENCES socio(idsocio)
+);
+
+--Tabla cuota_gastos
+create table cuota_gastos(
+	idcuota_gastos integer primary key identity,
+	idsocio integer not null,
+	num_cuota_gastos integer(50) not null unique,
+	monto_cuota_gastos integer(100) not null,
+    cuotas_cuota_gastos integer(100) not null,
+	fecha_hora datetime not null,
+    dividendo_cuota_gastos integer(100) not null
+	FOREIGN KEY (idsocio) REFERENCES socio(idsocio)
+);
+
+
+--Tabla transaccion
+create table transaccion(
+	idtransaccion integer primary key identity,
+	num_transaccion varchar(50) not null unique,
+	fecha_hora datetime not null,
+	total integer not null
+	FOREIGN KEY (idtipo_transaccion) REFERENCES tipo_transaccion(idtipo_transaccion)
+);
+
+create table detalle_transaccion(
+	iddetalle_transaccion integer primary key identity,
+	idtransaccion integer not null,
+	idcredito integer null,
+	idlibreta_ahorro integer null,
+	idcuota_gastos integer null,
+	cantidad integer not null,
+	precio decimal(11,2) not null,
+	FOREIGN KEY (idingreso) REFERENCES ingreso (idingreso) ON DELETE CASCADE,
+	FOREIGN KEY (idcredito) REFERENCES credito (idcredito)
+	FOREIGN KEY (idlibreta_ahorro) REFERENCES libreta_ahorro (idlibreta_ahorro)
+	FOREIGN KEY (idcuota_gastos) REFERENCES cuota_gastos (idcuota_gastos)
+);
+
+create table desglose_creditos(
+	iddesglose_credito integer primary key identity,
+	idcredito integer not null,
+	cuota integer not null,
+	valor integer not null,
+	estado varchar(50) not null,
+	FOREIGN KEY (idcredito) REFERENCES credito (idcredito)
+);
