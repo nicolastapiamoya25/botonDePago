@@ -1,11 +1,12 @@
 <?php
  @session_start();
  
-
- //require_once './conexion.php';
+ if (isset($_SESSION['monto']) && isset($_SESSION['ordenCompra']) && isset($_SESSION['idSocio'])) :
+   //require_once './conexion.php';
  //**********VARIABLES DE SESSION*************//
  $monto= $_SESSION['monto'];
- $orden= $_SESSION["ordenCompra"];
+ //echo $_SESSION['ordenCompra'];
+ $orden= $_SESSION['ordenCompra'];
  $idsocio= $_SESSION['idSocio'];
  $fecha_hora = date("Y-m-d H:i:s");
 
@@ -57,9 +58,7 @@
           $result = curl_exec($ch);
           curl_close($ch);
 }*/
-
-
-?>
+ ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -88,22 +87,33 @@
         </thead>
         <tbody>
             <tr>
-            <td>Monto</td>
-            <td id="amount"></td>
+              <td>Monto</td>
+              <td id="amount"></td>
             </tr>
             <tr>
-            <td>Codigo de autorización</td>
-            <td id="authorizationCode"></td>
+              <td>Codigo de autorización</td>
+              <td id="authorizationCode"></td>
             </tr>
             <tr>
-            <td>Codigo de Respuesta</td>
-            <td id="responseCode"></td>
+              <td>Codigo de Respuesta</td>
+              <td id="responseCode"></td>
             </tr>
             <tr>
-            <td>Orden de Compra</td>
-            <td id="orderBuy"><?php //echo $orden; ?></td>
+              <td>Socio</td>
+              <td id="socio"></td>
             </tr>
-
+            <tr>
+              <td>Número de acción</td>
+              <td id="sharesNumber"></td>
+            </tr>
+            <tr>
+              <td>Codigo de comercio</td>
+              <td id="commerceCode"></td>
+            </tr>
+            <tr>
+              <td>Orden de Compra</td>
+              <td id="buyOrder"><?php $orden ?></td>
+            </tr>
             
         </tbody>
         </table>
@@ -119,7 +129,20 @@
         document.getElementById('amount').innerHTML = window.localStorage.getItem('amount');
         document.getElementById('authorizationCode').innerHTML = window.localStorage.getItem('authorizationCode');
         document.getElementById('responseCode').innerHTML = window.localStorage.getItem('responseCode');
+        //document.getElementById('paymentType').innerHTML = window.localStorage.getItem('paymentType');
+        document.getElementById('sharesNumber').innerHTML = window.localStorage.getItem('sharesNumber');
+        document.getElementById('commerceCode').innerHTML = window.localStorage.getItem('commerceCode');
+        document.getElementById('buyOrder').innerHTML = window.localStorage.getItem('buyOrder');
+        document.getElementById('socio').innerHTML = window.localStorage.getItem('socio');
     </script>
   
   </body>
 </html>
+
+
+
+ <?php
+ else:
+  header('location:../home/error.php');
+ endif;
+?>

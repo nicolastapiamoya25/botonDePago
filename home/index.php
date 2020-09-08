@@ -1,7 +1,8 @@
 <?php 
 @session_start();
 if (isset($_SESSION['user'])) {
-    
+    echo $_SESSION['user'];
+    echo $_SESSION['idSocio'];
 }else{
     header('location:../index.php');
 }
@@ -15,7 +16,7 @@ include_once '../includes/header.php';
     <div class="row">
         <div class="col">
         <h3 class="text-left"><b>Pago Online</b></h3>
-        <p class="text-left">Realiza de forma rápida y segura el pago de tus productos</p>
+        <p class="text-left">Realiza de forma rápida y segura el pago de tus productos </p>
         </div>
     </div>
 

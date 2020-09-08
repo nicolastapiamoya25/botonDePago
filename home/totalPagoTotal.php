@@ -9,7 +9,7 @@ use Transbank\Webpay\Configuration;
 if($_POST["total"]=="" || $_POST["total"]=="$0" || $_POST["total"]=='$NaN')
 {
   echo "Valor nulo";
-  header('location:miscreditos.php'); 
+  header('location:../home/'); 
 }else{
   $_POST["total"];
   $varTotal = $_POST["total"];
@@ -36,7 +36,8 @@ $webpay = new Transbank\Webpay\Webpay($configuration);
   $returnUrl= 'http://localhost/estructura/home/return.php';
   $finalurl = 'http://localhost/estructura/home/final.php';
 
-  $initResult = $transaction->initTransaction($amount,$sessionId,$buyOrder,$returnUrl,$finalurl);
+
+  $initResult = $transaction->initTransaction($amount, $buyOrder, $sessionId, $returnUrl, $finalurl);
 
   $formAction = $initResult->url;
   $tokenWs = $initResult->token;
@@ -50,6 +51,8 @@ $webpay = new Transbank\Webpay\Webpay($configuration);
             <img src="../librerias/tranbank.jpg" class="img-thumbnail" width="500px" height="500px">
             </div>
             <div class="card-body">
+            <?php echo $_SESSION['idSocio'];
+                  echo $_SESSION['user']; ?>
               <h5 class="card-title">Total pago</h5>
                   <div class="container">     
                       <p><b>Valor</b>:  $<?php echo $amount ?> </p>
